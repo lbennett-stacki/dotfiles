@@ -1,0 +1,101 @@
+#!/usr/bin/env zsh
+
+# Modification of https://github.com/ThePrimeagen/.dotfiles/blob/602019e902634188ab06ea31251c01c1a43d1621/bin/.local/scripts/tmux-sessionizer
+# by and for Luke Bennett <lbennett@fastmail.com>
+
+local base_dir="$HOME/workspace"
+
+typeset -a full_paths
+typeset -a trimmed_paths
+
+local red='\033[0;31m'
+local green='\033[0;32m'
+local yellow='\033[0;33m'
+local reset='\033[0m'
+
+spinner() {
+	local pid=$1
+	local delay=0.1
+	local spin='-\|/'
+
+	while ps -p $pid > /dev/null; do
+		local temp=${spin#?}
+		printf " ${green}[${yellow}%c${reset}${green}]${reset}  Finding your ${red}feckin${reset} workspaces just gimmie a sec alright..." "$spin"
+		local spin=$temp${spin%"$temp"}
+		sleep $delay
+		printf "\r\033[K"
+	done
+}
+
+build_indexes() {
+	local entry=$1
+	if [[ $# -ne 1 ]]; then
+		find "$base_dir" -mindepth 1 -maxdepth 4 -type d -exec test -d '{}/.git' \; -print 2>/dev/null > /tmp/tmux-session-search-data &
+		pid=$!
+		spinner $pid
+		wait $pid
+		entry=$(</tmp/tmux-session-search-data)
+	fi
+
+	local index=1
+	echo "$entry" | while IFS= read -r full_path; do
+		local trimmed_path="${full_path#$base_dir/}"
+
+		full_paths[index]="$full_path"
+		trimmed_paths[index]="$trimmed_path"
+
+		((index++))
+	done
+}
+
+get_full_path() {
+	local trimmed="$1"
+
+	local i
+	for (( i=1; i<=${#trimmed_paths[@]}; i++ )); do
+	if [[ "${trimmed_paths[i]}" == "$trimmed" ]]; then
+		echo "${full_paths[i]}"
+
+		return 0
+	fi
+	done
+
+	return 1
+}
+
+run_session() {
+	local selected=$1
+	local full_path=$(get_full_path "$selected")
+  local name=$(basename "$full_path")
+	local is_tmux_running=$(pgrep tmux)
+
+	if [[ -z $TMUX ]] && [[ -z $is_tmux_running ]]; then
+		tmux new-session -s $name -c "$full_path"
+
+		exit 0
+	fi
+
+	if ! tmux has-session -t=$name 2> /dev/null; then
+		tmux new-session -ds $name -c "$full_path"
+
+    tmux switch-client -t $name
+    exit 0
+	fi
+
+  tmux attach -t $name
+}
+
+init_session() {
+	build_indexes
+
+	local selected=$(printf "%s\n" "${trimmed_paths[@]}" | fzf)
+
+	if [[ -z $selected ]]; then
+		exit 0
+	fi
+
+	run_session $selected
+}
+
+init_session
+

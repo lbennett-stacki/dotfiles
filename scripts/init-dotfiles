@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+read "dotfiles_dir?Enter the path to the lbennett-stacki/dotfiles repo: ~/"
+
+local dotfiles_dir="$HOME/$dotfiles_dir"
+
+local config_dir="$HOME/.config"
+
+ln -s "$dotfiles_dir/zsh/.system-zshrc" "$HOME/.zshrc" && echo "Created ~/.zshrc"
+
+ln -s "$dotfiles_dir/neovim/system-init.lua" "$config_dir/nvim/init.lua" && echo "Created ~/.config/nvim/init.lua"
+
+ln -s "$dotfiles_dir/tmux/.system-tmux.conf" "$HOME/.tmux.conf" && echo "Created ~/.tmux.conf"
