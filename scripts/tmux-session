@@ -78,11 +78,10 @@ run_session() {
 	if ! tmux has-session -t=$name 2> /dev/null; then
 		tmux new-session -ds $name -c "$full_path"
 
-    tmux switch-client -t $name
     exit 0
 	fi
 
-  tmux attach -t $name
+  tmux switch-client -t $name
 }
 
 init_session() {
