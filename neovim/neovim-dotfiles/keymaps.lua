@@ -1,11 +1,14 @@
--- Leader
 vim.g.mapleader = " "
 
--- Keymaps
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]]) -- Delete selection
+vim.keymap.set("n", "<Up>", "<Nop>")
+vim.keymap.set("n", "<Down>", "<Nop>")
+vim.keymap.set("n", "<Left>", "<Nop>")
+vim.keymap.set("n", "<Right>", "<Nop>")
+
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]]) -- Delete selection
 vim.keymap.set("x", "<leader>p", [["_dP]]) -- Move selection before cursor
 
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]]) -- Yank selection to system clipboard
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]]) -- Yank selection to system clipboard
 vim.keymap.set("n", "<leader>Y", [["+Y]]) -- Yank line to system clipboard
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- Move line down, comply with identation
@@ -18,3 +21,7 @@ vim.keymap.set("n", "J", "mzJ`z") -- Collapse next line onto current line, place
 
 vim.keymap.set("n", "n", "nzzzv") -- Next search occurance, cursor in center page
 vim.keymap.set("n", "N", "Nzzzv") -- Previous search occurance, cursor in center page
+
+vim.keymap.set("n", "<leader>dd", function()
+	vim.diagnostic.open_float()
+end, { noremap = true })

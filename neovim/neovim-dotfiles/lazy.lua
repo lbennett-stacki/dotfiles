@@ -15,6 +15,9 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
 	spec = {
+		-- Preload
+		{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+		-- LazyVim
 		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
 		{ import = "lazyvim.plugins.extras.lang.typescript" },
 		{ import = "lazyvim.plugins.extras.lang.go" },
@@ -25,15 +28,12 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.lang.terraform" },
 		{ import = "lazyvim.plugins.extras.lang.json" },
 		{ import = "lazyvim.plugins.extras.lang.yaml" },
+		{ import = "lazyvim.plugins.extras.test.core" },
+		{ import = "lazyvim.plugins.extras.editor.harpoon2" },
+		{ import = "lazyvim.plugins.extras.coding.copilot" },
 		-- Overrides
-		{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-		{
-			"LazyVim/LazyVim",
-			opts = {
-				colorscheme = "catppuccin",
-			},
-		},
 		{ "nvim-neo-tree/neo-tree.nvim", enabled = false },
+		{ "akinsho/bufferline.nvim", enabled = false },
 	},
 	defaults = {
 		lazy = false,

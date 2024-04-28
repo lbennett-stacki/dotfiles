@@ -10,6 +10,7 @@ TERM=screen-256color
 export LANG=en_US.UTF-8
 export PATH="$HOME/workspace/personal/dotfiles/scripts:$PATH"
 
+
 # OMZ
 zstyle ':omz:update' mode reminder
 zstyle ':omz:update' frequency 7
@@ -33,6 +34,9 @@ alias sesh="tmux-session"
 # Rust
 source "$HOME/.cargo/env"
 export PATH="$HOME/.asdf/installs/rust/$(asdf current rust | awk '{print $2}')/bin:$PATH"
+
+# Go
+export PATH="$HOME/go/bin:$PATH"
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
