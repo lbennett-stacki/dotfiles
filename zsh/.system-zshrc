@@ -1,1 +1,4 @@
 source ~/workspace/personal/dotfiles/zsh/.zshrc
+
+# sst
+export PATH=/Users/luke.bennett/.sst/bin:$PATH

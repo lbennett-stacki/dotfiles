@@ -76,8 +76,9 @@ run_session() {
 	fi
 
 	if ! tmux has-session -t=$name 2> /dev/null; then
-		tmux new-session -ds $name -c "$full_path"
-    tmux switch-client -t $name
+		tmux new-session -s $name -c "$full_path"
+
+    exit 0
 	fi
 
   tmux attach -t $name
