@@ -67,21 +67,22 @@ run_session() {
 	local selected=$1
 	local full_path=$(get_full_path "$selected")
   local name=$(basename "$full_path")
-	local is_tmux_running=$(pgrep tmux)
+  local is_tmux_running_here=$TMUX
+  local existing_session=$(tmux has-session -t=$name 2> /dev/null && echo $name || echo "")
 
-	if [[ -z $TMUX ]] && [[ -z $is_tmux_running ]]; then
-		tmux new-session -s $name -c "$full_path"
+  if [[ -z $existing_session ]]; then
+    echo "Creating session \"$name\""
+    tmux new-session -ds $name -c "$full_path"
+  fi
 
-		exit 0
-	fi
-
-	if ! tmux has-session -t=$name 2> /dev/null; then
-		tmux new-session -s $name -c "$full_path"
-
+  if [[ -z $is_tmux_running_here ]]; then
+    echo "Attaching to session \"$name\""
+    tmux attach -t $name
     exit 0
-	fi
-
-  tmux attach -t $name
+  else
+    echo "Switching to session \"$name\""
+    tmux switch-client -t $name
+  fi
 }
 
 init_session() {
