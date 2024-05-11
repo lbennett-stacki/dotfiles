@@ -28,12 +28,20 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.lang.terraform" },
 		{ import = "lazyvim.plugins.extras.lang.json" },
 		{ import = "lazyvim.plugins.extras.lang.yaml" },
+		{ import = "lazyvim.plugins.extras.lang.swift" },
 		{ import = "lazyvim.plugins.extras.test.core" },
 		{ import = "lazyvim.plugins.extras.editor.harpoon2" },
 		{ import = "lazyvim.plugins.extras.coding.copilot" },
 		-- Overrides
 		{ "nvim-neo-tree/neo-tree.nvim", enabled = false },
 		{ "akinsho/bufferline.nvim", enabled = false },
+
+		{
+			"williamboman/mason.nvim",
+			opts = { registries = {
+				"file:~/workspace/personal/contributions/mason-registry",
+			} },
+		},
 	},
 	defaults = {
 		lazy = false,

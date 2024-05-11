@@ -10,7 +10,6 @@ TERM=screen-256color
 export LANG=en_US.UTF-8
 export PATH="$HOME/workspace/personal/dotfiles/scripts:$PATH"
 
-
 # OMZ
 zstyle ':omz:update' mode reminder
 zstyle ':omz:update' frequency 7
@@ -45,13 +44,20 @@ export PATH="$HOME/go/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # WASM
-export WASMER_DIR="/Users/luke.bennett/.wasmer"
+export WASMER_DIR="$HOME/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
 # JavaScript
-export PNPM_HOME="/Users/luke.bennett/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
+
+# SST
+export PATH=$HOME/.sst/bin:$PATH
+
+# Mojo
+export MODULAR_HOME="$HOME/.modular"
+export PATH="$HOME/.modular/pkg/packages.modular.com_nightly_mojo/bin:$PATH"
 
