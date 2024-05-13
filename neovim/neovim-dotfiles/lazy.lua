@@ -33,6 +33,8 @@ require("lazy").setup({
 		{ "akinsho/bufferline.nvim", enabled = false },
 		{ "lbennett-stacki/here.nvim" },
 
+		-- Dev
+
 		-- { import = "lazyvim.plugins.extras.lang.swift" },
 		-- {
 		-- 	"williamboman/mason.nvim",
