@@ -31,12 +31,7 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.coding.copilot" },
 		{ "nvim-neo-tree/neo-tree.nvim", enabled = false },
 		{ "akinsho/bufferline.nvim", enabled = false },
-
-		-- Dev
-		{
-			dir = "~/workspace/personal/tools/neovim/here.nvim",
-			opts = {},
-		},
+		{ "lbennett-stacki/here.nvim" },
 
 		-- { import = "lazyvim.plugins.extras.lang.swift" },
 		-- {
