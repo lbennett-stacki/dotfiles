@@ -32,6 +32,11 @@ require("lazy").setup({
 		{ "nvim-neo-tree/neo-tree.nvim", enabled = false },
 		{ "akinsho/bufferline.nvim", enabled = false },
 		{ "lbennett-stacki/here.nvim" },
+		{
+			"stevearc/oil.nvim",
+			opts = {},
+			dependencies = { "nvim-tree/nvim-web-devicons" },
+		},
 
 		-- Dev
 
