@@ -39,7 +39,8 @@ require("lazy").setup({
 		},
 
 		-- Dev
-
+		--
+		{ import = "plugins.swift" },
 		-- { import = "lazyvim.plugins.extras.lang.swift" },
 		-- {
 		-- 	"williamboman/mason.nvim",
